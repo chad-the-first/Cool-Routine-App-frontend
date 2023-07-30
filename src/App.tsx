@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Routine } from "./models/routine";
+import { Routine as RoutineModel } from "./models/routine";
+import Routine from "./components/Routine";
 
 function App() {
-  const [routines, setRoutines] = useState<Routine[]>([]);
+  const [routines, setRoutines] = useState<RoutineModel[]>([]);
 
   useEffect(() => {
     async function loadRoutines() {
@@ -20,7 +21,13 @@ function App() {
     loadRoutines();
   }, []);
 
-  return <div className="App">{JSON.stringify(routines)}</div>;
+  return (
+    <div>
+      {routines.map((routine) => (
+        <Routine routine={routine} key={routine._id} />
+      ))}
+    </div>
+  );
 }
 
 export default App;
