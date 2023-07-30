@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Routine as RoutineModel } from "./models/routine";
 import Routine from "./components/Routine";
+import { Col, Container, Row } from "react-bootstrap";
+import styles from "./styles/RoutinesPage.module.css";
 
 function App() {
   const [routines, setRoutines] = useState<RoutineModel[]>([]);
@@ -22,11 +24,15 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {routines.map((routine) => (
-        <Routine routine={routine} key={routine._id} />
-      ))}
-    </div>
+    <Container>
+      <Row xs={1} md={2} xl={3} className="g-4">
+        {routines.map((routine) => (
+          <Col key={routine._id}>
+            <Routine routine={routine} className={styles.routine} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
 
