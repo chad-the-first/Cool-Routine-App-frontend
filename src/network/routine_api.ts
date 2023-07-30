@@ -34,6 +34,18 @@ export async function creatRoutine(routine: RoutineInput): Promise<Routine> {
     return response.json();
 }
 
+export async function updateRoutine(routineId: string, routine: RoutineInput): Promise<Routine> {
+    const response = await fetchData("/api/routines/" + routineId,
+    {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(routine),
+    });
+    return response.json();
+}
+
 export async function deletRoutine(routineId: string) {
     await fetchData("/api/routines/" + routineId, { method: "DELETE" });
 }

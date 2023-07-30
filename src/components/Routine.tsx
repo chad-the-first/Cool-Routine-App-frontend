@@ -9,9 +9,15 @@ interface Props {
   routine: RoutineModel;
   className?: string;
   onDeleteRoutineClicked: (routine: RoutineModel) => void;
+  onRoutineClicked: (routine: RoutineModel) => void;
 }
 
-const Routine = ({ routine, className, onDeleteRoutineClicked }: Props) => {
+const Routine = ({
+  routine,
+  className,
+  onDeleteRoutineClicked,
+  onRoutineClicked,
+}: Props) => {
   const { title, text, createdAt, updatedAt } = routine;
 
   let createdUpdatedText: string;
@@ -22,7 +28,10 @@ const Routine = ({ routine, className, onDeleteRoutineClicked }: Props) => {
   }
 
   return (
-    <Card className={`${styles.routineCard} ${className}`}>
+    <Card
+      onClick={() => onRoutineClicked(routine)}
+      className={`${styles.routineCard} ${className}`}
+    >
       <Card.Body className={styles.cardBody}>
         <Card.Title className={stylesUtils.flexCenter}>
           {title}

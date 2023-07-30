@@ -5,20 +5,38 @@ import { RoutineInput } from "../network/routine_api";
 import * as RoutineApi from "../network/routine_api";
 
 interface props {
+  routineToEdit?: Routine;
   onDismiss: () => void;
   onRoutineSaved: (routine: Routine) => void;
 }
 
-const AddRoutineDialog = ({ onDismiss, onRoutineSaved }: props) => {
+const AddEditRoutineDialog = ({
+  routineToEdit,
+  onDismiss,
+  onRoutineSaved,
+}: props) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<RoutineInput>();
+  } = useForm<RoutineInput>({
+    defaultValues: {
+      title: routineToEdit?.title || "",
+      text: routineToEdit?.text || "",
+    },
+  });
 
   async function onSubmit(input: RoutineInput) {
     try {
-      const routineResponse = await RoutineApi.creatRoutine(input);
+      let routineResponse: Routine;
+      if (routineToEdit) {
+        routineResponse = await RoutineApi.updateRoutine(
+          routineToEdit._id,
+          input
+        );
+      } else {
+        routineResponse = await RoutineApi.creatRoutine(input);
+      }
       onRoutineSaved(routineResponse);
     } catch (error) {
       console.log(error);
@@ -29,11 +47,13 @@ const AddRoutineDialog = ({ onDismiss, onRoutineSaved }: props) => {
   return (
     <Modal show onHide={onDismiss}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Routine</Modal.Title>
+        <Modal.Title>
+          {routineToEdit ? "Edit routine" : "Add routine"}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <Form id="addRoutineForm" onSubmit={handleSubmit(onSubmit)}>
+        <Form id="addEditRoutineForm" onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Title</Form.Label>
             <Form.Control
@@ -58,7 +78,7 @@ const AddRoutineDialog = ({ onDismiss, onRoutineSaved }: props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="submit" form="addRoutineForm" disabled={isSubmitting}>
+        <Button type="submit" form="addEditRoutineForm" disabled={isSubmitting}>
           Save
         </Button>
       </Modal.Footer>
@@ -66,4 +86,4 @@ const AddRoutineDialog = ({ onDismiss, onRoutineSaved }: props) => {
   );
 };
 
-export default AddRoutineDialog;
+export default AddEditRoutineDialog;

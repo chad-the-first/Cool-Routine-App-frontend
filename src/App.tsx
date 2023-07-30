@@ -5,11 +5,13 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import styles from "./styles/RoutinesPage.module.css";
 import stylesUtils from "./styles/utils.module.css";
 import * as RoutinesApi from "./network/routine_api";
-import AddRoutineDialog from "./components/AddRoutineDialog";
+import AddRoutineDialog from "./components/AddEditRoutineDialog";
+import { FaPlus } from "react-icons/fa";
 
 function App() {
   const [routines, setRoutines] = useState<RoutineModel[]>([]);
   const [showAddRoutineDialog, setShowAddRoutineDIalog] = useState(false);
+  const [routineToEdit, setRoutineToEdit] = useState<RoutineModel | null>(null);
 
   useEffect(() => {
     async function loadRoutines() {
@@ -41,9 +43,10 @@ function App() {
   return (
     <Container>
       <Button
-        className={`mb-4 ${stylesUtils.blockCenter}`}
+        className={`mb-4 ${stylesUtils.blockCenter} ${stylesUtils.flexCenter}`}
         onClick={() => setShowAddRoutineDIalog(true)}
       >
+        <FaPlus />
         Add new routine
       </Button>
       <Row xs={1} md={2} xl={3} className="g-4">
@@ -51,6 +54,7 @@ function App() {
           <Col key={routine._id}>
             <Routine
               onDeleteRoutineClicked={deleteRoutine}
+              onRoutineClicked={setRoutineToEdit}
               routine={routine}
               className={styles.routine}
             />
@@ -63,6 +67,22 @@ function App() {
           onRoutineSaved={(newRoutine) => {
             setRoutines([...routines, newRoutine]);
             setShowAddRoutineDIalog(false);
+          }}
+        />
+      )}
+      {routineToEdit && (
+        <AddRoutineDialog
+          routineToEdit={routineToEdit}
+          onDismiss={() => setRoutineToEdit(null)}
+          onRoutineSaved={(updatedRoutine) => {
+            setRoutines(
+              routines.map((existingRoutine) =>
+                existingRoutine._id === updatedRoutine._id
+                  ? updatedRoutine
+                  : existingRoutine
+              )
+            );
+            setRoutineToEdit(null);
           }}
         />
       )}
