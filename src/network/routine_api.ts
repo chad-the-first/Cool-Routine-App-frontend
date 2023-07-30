@@ -33,3 +33,7 @@ export async function creatRoutine(routine: RoutineInput): Promise<Routine> {
     });
     return response.json();
 }
+
+export async function deletRoutine(routineId: string) {
+    await fetchData("/api/routines/" + routineId, { method: "DELETE" });
+}

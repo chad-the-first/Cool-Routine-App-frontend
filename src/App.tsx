@@ -24,6 +24,20 @@ function App() {
     loadRoutines();
   }, []);
 
+  async function deleteRoutine(routine: RoutineModel) {
+    try {
+      await RoutinesApi.deletRoutine(routine._id);
+      setRoutines(
+        routines.filter(
+          (existingRoutine) => existingRoutine._id !== routine._id
+        )
+      );
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  }
+
   return (
     <Container>
       <Button
@@ -35,7 +49,11 @@ function App() {
       <Row xs={1} md={2} xl={3} className="g-4">
         {routines.map((routine) => (
           <Col key={routine._id}>
-            <Routine routine={routine} className={styles.routine} />
+            <Routine
+              onDeleteRoutineClicked={deleteRoutine}
+              routine={routine}
+              className={styles.routine}
+            />
           </Col>
         ))}
       </Row>
