@@ -7,6 +7,8 @@ import stylesUtils from "./styles/utils.module.css";
 import * as RoutinesApi from "./network/routine_api";
 import AddRoutineDialog from "./components/AddEditRoutineDialog";
 import { FaPlus } from "react-icons/fa";
+import SignUpModal from "./components/SignUpModal";
+import LoginModal from "./components/LoginModal";
 
 function App() {
   const [routines, setRoutines] = useState<RoutineModel[]>([]);
@@ -108,6 +110,12 @@ function App() {
             setRoutineToEdit(null);
           }}
         />
+      )}
+      {false && (
+        <SignUpModal onDismiss={() => {}} onSignUpSuccessful={() => {}} />
+      )}
+      {false && (
+        <LoginModal onDismiss={() => {}} onLoginSuccessful={() => {}} />
       )}
     </Container>
   );
