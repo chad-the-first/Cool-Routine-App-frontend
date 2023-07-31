@@ -1,3 +1,13 @@
+.routinesPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.routinesGrid {
+  width: 100%;
+}
+
 .routine {
   height: 200px;
   min-width: 150px;
