@@ -2,6 +2,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { User } from "../models/user";
 import NavBarLoggedinView from "./NavBarLoggedinView";
 import NavBarLoggedOutView from "./NavBarLoggedOutView";
+import { Link } from "react-router-dom";
 
 interface props {
   loggedInUser: User | null;
@@ -19,9 +20,16 @@ const NavBar = ({
   return (
     <Navbar bg="primary" variant="dark" expand="sm" sticky="top">
       <Container>
-        <Navbar.Brand>Cool Routine App</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          Cool Routine App
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar">
+          <Nav>
+            <Nav.Link as={Link} to="/privacy">
+              Privacy
+            </Nav.Link>
+          </Nav>
           <Nav className="ms-auto">
             {loggedInUser ? (
               <NavBarLoggedinView

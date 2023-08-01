@@ -48,7 +48,7 @@ const RoutinesPageLoggeInView = () => {
   }
 
   const routinesGrid = (
-    <Row xs={1} md={2} xl={3} className={`g-4 ${styles.routineGrid}`}>
+    <Row xs={1} md={2} xl={3} className={`g-4 ${styles.routinesGrid}`}>
       {routines.map((routine) => (
         <Col key={routine._id}>
           <Routine

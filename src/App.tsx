@@ -1,13 +1,15 @@
-import { Container } from "react-bootstrap";
-import styles from "./styles/RoutinesPage.module.css";
 import NavBar from "./components/NavBar";
 import LoginModal from "./components/LoginModal";
 import SignUpModal from "./components/SignUpModal";
 import { useState, useEffect } from "react";
 import { User } from "./models/user";
 import * as RoutineApi from "./network/routine_api";
-import RoutinesPageLoggeInView from "./components/RoutinesPageLoggedInView";
-import RoutinesPageLoggedOutView from "./components/RoutinesPageLoggedOutView";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import RoutinesPage from "./pages/RoutinesPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import styles from "./styles/App.module.css";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
@@ -27,40 +29,46 @@ function App() {
   }, []);
 
   return (
-    <>
-      <NavBar
-        loggedInUser={loggedInUser}
-        onLoginClicked={() => setShowLoginModal(true)}
-        onSignUpClicked={() => setShowSignUpModal(true)}
-        onlogoutSuccessful={() => setLoggedInUser(null)}
-      />
-      <Container className={styles.routinesPage}></Container>
+    <BrowserRouter>
       <>
-        {loggedInUser ? (
-          <RoutinesPageLoggeInView />
-        ) : (
-          <RoutinesPageLoggedOutView />
+        <NavBar
+          loggedInUser={loggedInUser}
+          onLoginClicked={() => setShowLoginModal(true)}
+          onSignUpClicked={() => setShowSignUpModal(true)}
+          onlogoutSuccessful={() => setLoggedInUser(null)}
+        />
+
+        <Container className={styles.pageContainer}>
+          <Routes>
+            <Route
+              path="/"
+              element={<RoutinesPage loggedInUser={loggedInUser} />}
+            />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/*" element={<NotFoundPage />} />
+          </Routes>
+        </Container>
+
+        {showSignUpModal && (
+          <SignUpModal
+            onDismiss={() => setShowSignUpModal(false)}
+            onSignUpSuccessful={(user) => {
+              setLoggedInUser(user);
+              setShowSignUpModal(false);
+            }}
+          />
+        )}
+        {showLoginModal && (
+          <LoginModal
+            onDismiss={() => setShowLoginModal(false)}
+            onLoginSuccessful={(user) => {
+              setLoggedInUser(user);
+              setShowLoginModal(false);
+            }}
+          />
         )}
       </>
-      {showSignUpModal && (
-        <SignUpModal
-          onDismiss={() => setShowSignUpModal(false)}
-          onSignUpSuccessful={(user) => {
-            setLoggedInUser(user);
-            setShowSignUpModal(false);
-          }}
-        />
-      )}
-      {showLoginModal && (
-        <LoginModal
-          onDismiss={() => setShowLoginModal(false)}
-          onLoginSuccessful={(user) => {
-            setLoggedInUser(user);
-            setShowLoginModal(false);
-          }}
-        />
-      )}
-    </>
+    </BrowserRouter>
   );
 }
 
