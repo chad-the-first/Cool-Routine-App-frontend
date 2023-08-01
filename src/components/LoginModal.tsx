@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { LoginCredentials } from "../network/routine_api";
 import * as RoutineApi from "../network/routine_api";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
 import styleUtils from "../styles/utils.module.css";
 import { User } from "../models/user";
+import { useState } from "react";
+import { UnautorizedError } from "../errors/http_errors";
 
 interface props {
   onDismiss: () => void;
@@ -12,6 +14,8 @@ interface props {
 }
 
 const LoginModal = ({ onDismiss, onLoginSuccessful }: props) => {
+  const [errorText, setErrorText] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -23,7 +27,11 @@ const LoginModal = ({ onDismiss, onLoginSuccessful }: props) => {
       const user = await RoutineApi.login(credentials);
       onLoginSuccessful(user);
     } catch (error) {
-      alert(error);
+      if (error instanceof UnautorizedError) {
+        setErrorText(error.message);
+      } else {
+        alert(error);
+      }
       console.log(error);
     }
   }
@@ -34,6 +42,7 @@ const LoginModal = ({ onDismiss, onLoginSuccessful }: props) => {
         <Modal.Title>Log In</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {errorText && <Alert variant="danger">{errorText}</Alert>}
         <Form onSubmit={handleSubmit(onSubmit)}>
           <TextInputField
             name="username"
