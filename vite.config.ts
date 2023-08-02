@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://cool-routine-app-backend.vercel.app/',
+        target: 'https://routine-app-backend-1.onrender.com/',
         changeOrigin: true,
         secure: false,
       }
