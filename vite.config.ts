@@ -10,6 +10,7 @@ export default defineConfig({
         target: 'https://routine-app-backend-1.onrender.com/',
         changeOrigin: true,
         secure: false,
+        ws: true
       }
     }
   }
