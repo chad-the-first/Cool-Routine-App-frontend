@@ -1,7 +1,12 @@
 export interface Routine {
     _id: string,
-    title: string,
-    text?: string,
+    fun: string,
+    knowledge: string,
+    work: string,
+    service: string,
+    self_care: string,
+    family: string,
+    date: string,
     createdAt: string,
     updatedAt: string,
 }

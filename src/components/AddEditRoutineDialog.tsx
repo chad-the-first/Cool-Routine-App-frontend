@@ -9,21 +9,29 @@ interface props {
   routineToEdit?: Routine;
   onDismiss: () => void;
   onRoutineSaved: (routine: Routine) => void;
+  value: string;
 }
 
 const AddEditRoutineDialog = ({
+  value,
   routineToEdit,
   onDismiss,
   onRoutineSaved,
 }: props) => {
+  const day = value.slice(0, 10);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<RoutineInput>({
     defaultValues: {
-      title: routineToEdit?.title || "",
-      text: routineToEdit?.text || "",
+      fun: routineToEdit?.fun || "0",
+      knowledge: routineToEdit?.knowledge || "0",
+      work: routineToEdit?.work || "0",
+      service: routineToEdit?.service || "0",
+      self_care: routineToEdit?.self_care || "0",
+      family: routineToEdit?.family || "0",
+      date: routineToEdit?.date || day,
     },
   });
 
@@ -49,29 +57,59 @@ const AddEditRoutineDialog = ({
     <Modal show onHide={onDismiss}>
       <Modal.Header closeButton>
         <Modal.Title>
-          {routineToEdit ? "Edit routine" : "Add routine"}
+          {routineToEdit ? "Edit summary for " + day : "Add summary for " + day}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form id="addEditRoutineForm" onSubmit={handleSubmit(onSubmit)}>
           <TextInputField
-            name="title"
-            label="Title"
-            type="text"
-            placeholder="Title"
+            name="fun"
+            label="Fun"
+            type="range"
             register={register}
             registerOptions={{ required: "Required" }}
-            error={errors.title}
+            error={errors.fun}
           />
-
           <TextInputField
-            name="text"
-            label="Text"
-            as="textarea"
-            rows={5}
-            placeholder="Text"
+            name="knowledge"
+            label="Knowledge"
+            type="range"
             register={register}
+            registerOptions={{ required: "Required" }}
+            error={errors.knowledge}
+          />
+          <TextInputField
+            name="work"
+            label="Work"
+            type="range"
+            register={register}
+            registerOptions={{ required: "Required" }}
+            error={errors.work}
+          />
+          <TextInputField
+            name="service"
+            label="Service"
+            type="range"
+            register={register}
+            registerOptions={{ required: "Required" }}
+            error={errors.service}
+          />
+          <TextInputField
+            name="self_care"
+            label="Self_care"
+            type="range"
+            register={register}
+            registerOptions={{ required: "Required" }}
+            error={errors.self_care}
+          />
+          <TextInputField
+            name="family"
+            label="Family"
+            type="range"
+            register={register}
+            registerOptions={{ required: "Required" }}
+            error={errors.family}
           />
         </Form>
       </Modal.Body>

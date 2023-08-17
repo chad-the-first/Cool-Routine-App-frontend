@@ -1,6 +1,6 @@
 import styles from "../styles/Routine.module.css";
 import stylesUtils from "../styles/utils.module.css";
-import { Card } from "react-bootstrap";
+import { Card, ProgressBar } from "react-bootstrap";
 import { Routine as RoutineModel } from "../models/routine";
 import { formatDate } from "../utils/formatDate";
 import { MdDelete } from "react-icons/md";
@@ -18,7 +18,16 @@ const Routine = ({
   onDeleteRoutineClicked,
   onRoutineClicked,
 }: Props) => {
-  const { title, text, createdAt, updatedAt } = routine;
+  const {
+    fun,
+    knowledge,
+    work,
+    service,
+    self_care,
+    family,
+    createdAt,
+    updatedAt,
+  } = routine;
 
   let createdUpdatedText: string;
   if (updatedAt > createdAt) {
@@ -28,25 +37,36 @@ const Routine = ({
   }
 
   return (
-    <Card
-      onClick={() => onRoutineClicked(routine)}
-      className={`${styles.routineCard} ${className}`}
-    >
-      <Card.Body className={styles.cardBody}>
-        <Card.Title className={stylesUtils.flexCenter}>
-          {title}
-          <MdDelete
-            className="text-muted ms-auto"
-            onClick={(e: { stopPropagation: () => void }) => {
-              onDeleteRoutineClicked(routine);
-              e.stopPropagation();
-            }}
-          />
-        </Card.Title>
-        <Card.Text className={styles.cardText}>{text}</Card.Text>
-      </Card.Body>
-      <Card.Footer className="text-muted">{createdUpdatedText}</Card.Footer>
-    </Card>
+    <>
+      {/* <Card
+        onClick={() => onRoutineClicked(routine)}
+        className={`${styles.routineCard} ${className}`}
+      >
+        <Card.Body className={styles.cardBody}>
+          <Card.Title className={stylesUtils.flexCenter}>
+            {title}
+            <MdDelete
+              className="text-muted ms-auto"
+              onClick={(e: { stopPropagation: () => void }) => {
+                onDeleteRoutineClicked(routine);
+                e.stopPropagation();
+              }}
+            />
+          </Card.Title>
+          <Card.Text className={styles.cardText}>{text}</Card.Text>
+        </Card.Body>
+        <Card.Footer className="text-muted">{createdUpdatedText}</Card.Footer>
+      </Card> */}
+
+      <div>
+        <ProgressBar variant="success" now={parseInt(fun)} />
+        <ProgressBar variant="info" now={parseInt(knowledge)} />
+        <ProgressBar variant="warning" now={parseInt(work)} />
+        <ProgressBar variant="danger" now={parseInt(service)} />
+        <ProgressBar variant="success" now={parseInt(self_care)} />
+        <ProgressBar variant="info" now={parseInt(family)} />
+      </div>
+    </>
   );
 };
 

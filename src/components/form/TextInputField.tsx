@@ -24,6 +24,9 @@ const TextInputField = ({
       <Form.Control
         {...props}
         {...register(name, registerOptions)}
+        min="0"
+        max="100"
+        step="10"
         isInvalid={!!error}
       />
       <Form.Control.Feedback type="invalid">

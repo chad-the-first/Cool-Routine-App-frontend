@@ -7,12 +7,19 @@ import stylesUtils from "../styles/utils.module.css";
 import AddRoutineDialog from "./AddEditRoutineDialog";
 import Routine from "./Routine";
 import styles from "../styles/RoutinesPage.module.css";
+import Calendar from "react-calendar";
+import "../styles/Calendar.css";
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const RoutinesPageLoggeInView = () => {
   const [routines, setRoutines] = useState<RoutineModel[]>([]);
   const [routinesLoading, setRoutinesLoading] = useState(true);
   const [showRoutinesLoadingError, setShowRoutinesLoadingError] =
     useState(false);
+  const [day, setDay] = useState<Value>(new Date());
   const [showAddRoutineDialog, setShowAddRoutineDIalog] = useState(false);
   const [routineToEdit, setRoutineToEdit] = useState<RoutineModel | null>(null);
 
@@ -33,6 +40,19 @@ const RoutinesPageLoggeInView = () => {
     loadRoutines();
   }, []);
 
+  useEffect(() => {
+    const dayShort = String(day).slice(0, 10);
+    routines.map((routine) => {
+      if (routine.date === dayShort) {
+        console.log(dayShort);
+        setRoutineToEdit(routine);
+      } else {
+        console.log(dayShort);
+        setShowAddRoutineDIalog(true);
+      }
+    });
+  }, [day]);
+
   async function deleteRoutine(routine: RoutineModel) {
     try {
       await RoutinesApi.deletRoutine(routine._id);
@@ -49,16 +69,18 @@ const RoutinesPageLoggeInView = () => {
 
   const routinesGrid = (
     <Row xs={1} md={2} xl={3} className={`g-4 ${styles.routinesGrid}`}>
-      {routines.map((routine) => (
-        <Col key={routine._id}>
-          <Routine
-            onDeleteRoutineClicked={deleteRoutine}
-            onRoutineClicked={setRoutineToEdit}
-            routine={routine}
-            className={styles.routine}
-          />
-        </Col>
-      ))}
+      {routines.map((routine) => {
+        return (
+          <Col key={routine._id}>
+            <Routine
+              onDeleteRoutineClicked={deleteRoutine}
+              onRoutineClicked={setRoutineToEdit}
+              routine={routine}
+              className={styles.routine}
+            />
+          </Col>
+        );
+      })}
     </Row>
   );
 
@@ -84,8 +106,12 @@ const RoutinesPageLoggeInView = () => {
           )}
         </>
       )}
+
+      <Calendar onChange={setDay} value={day} />
+
       {showAddRoutineDialog && (
         <AddRoutineDialog
+          value={String(day)}
           onDismiss={() => setShowAddRoutineDIalog(false)}
           onRoutineSaved={(newRoutine) => {
             setRoutines([...routines, newRoutine]);
@@ -95,6 +121,7 @@ const RoutinesPageLoggeInView = () => {
       )}
       {routineToEdit && (
         <AddRoutineDialog
+          value={String(day)}
           routineToEdit={routineToEdit}
           onDismiss={() => setRoutineToEdit(null)}
           onRoutineSaved={(updatedRoutine) => {
