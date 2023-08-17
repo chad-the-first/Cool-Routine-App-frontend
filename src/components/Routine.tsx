@@ -1,9 +1,6 @@
-import styles from "../styles/Routine.module.css";
-import stylesUtils from "../styles/utils.module.css";
-import { Card, ProgressBar } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import { Routine as RoutineModel } from "../models/routine";
-import { formatDate } from "../utils/formatDate";
-import { MdDelete } from "react-icons/md";
+// import { formatDate } from "../utils/formatDate";
 
 interface Props {
   routine: RoutineModel;
@@ -14,10 +11,10 @@ interface Props {
 
 const Routine = ({
   routine,
-  className,
-  onDeleteRoutineClicked,
-  onRoutineClicked,
-}: Props) => {
+}: // className,
+// onDeleteRoutineClicked,
+// onRoutineClicked,
+Props) => {
   const {
     fun,
     knowledge,
@@ -25,16 +22,16 @@ const Routine = ({
     service,
     self_care,
     family,
-    createdAt,
-    updatedAt,
+    // createdAt,
+    // updatedAt,
   } = routine;
 
-  let createdUpdatedText: string;
-  if (updatedAt > createdAt) {
-    createdUpdatedText = "Updated: " + formatDate(updatedAt);
-  } else {
-    createdUpdatedText = "Created: " + formatDate(createdAt);
-  }
+  // let createdUpdatedText: string;
+  // if (updatedAt > createdAt) {
+  //   createdUpdatedText = "Updated: " + formatDate(updatedAt);
+  // } else {
+  //   createdUpdatedText = "Created: " + formatDate(createdAt);
+  // }
 
   return (
     <>
