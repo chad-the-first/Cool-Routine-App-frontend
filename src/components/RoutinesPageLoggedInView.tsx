@@ -9,7 +9,7 @@ import Routine from "./Routine";
 import styles from "../styles/RoutinesPage.module.css";
 import Calendar from "react-calendar";
 import "../styles/Calendar.css";
-import Chart from "./chart";
+import Chart from "./Chart";
 
 type ValuePiece = Date | null;
 
