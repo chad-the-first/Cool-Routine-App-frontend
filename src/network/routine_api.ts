@@ -77,14 +77,6 @@ export async function fetchRoutines(): Promise<Routine[]> {
       return await response.data;
 }
 
-export async function fetchChart(): Promise<Routine> {
-    const response = await axios({
-        url: "/api/chart",
-        method: "GET",
-      });
-      return await response.data;
-}
-
 export interface RoutineInput {
     fun: string,
     knowledge: string,
