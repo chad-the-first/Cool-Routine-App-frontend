@@ -5,6 +5,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = 'https://routine-app-backend-1.onrender.com';
 axios.defaults.headers.post['Content-Type'] = "application/json";
+axios.defaults.headers.patch['Content-Type'] = "application/json";
 axios.defaults.withCredentials = true;
 
 // async function fetchData(input: RequestInfo, init?: RequestInit) {
@@ -71,6 +72,14 @@ export async function logout() {
 export async function fetchRoutines(): Promise<Routine[]> {
     const response = await axios({
         url: "/api/routines",
+        method: "GET",
+      });
+      return await response.data;
+}
+
+export async function fetchChart(): Promise<Routine> {
+    const response = await axios({
+        url: "/api/chart",
         method: "GET",
       });
       return await response.data;

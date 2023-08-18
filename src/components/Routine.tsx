@@ -22,6 +22,7 @@ Props) => {
     service,
     self_care,
     family,
+    date,
     // createdAt,
     // updatedAt,
   } = routine;
@@ -56,6 +57,7 @@ Props) => {
       </Card> */}
 
       <div>
+        <h5 className="text-center">{date}</h5>
         <ProgressBar variant="success" now={parseInt(fun)} />
         <ProgressBar variant="info" now={parseInt(knowledge)} />
         <ProgressBar variant="warning" now={parseInt(work)} />

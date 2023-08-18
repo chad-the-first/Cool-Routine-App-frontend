@@ -9,6 +9,7 @@ import Routine from "./Routine";
 import styles from "../styles/RoutinesPage.module.css";
 import Calendar from "react-calendar";
 import "../styles/Calendar.css";
+import Chart from "./chart";
 
 type ValuePiece = Date | null;
 
@@ -40,17 +41,20 @@ const RoutinesPageLoggeInView = () => {
     loadRoutines();
   }, []);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     const dayShort = String(day).slice(0, 10);
-    routines.map((routine) => {
-      if (routine.date === dayShort) {
-        console.log(dayShort);
-        setRoutineToEdit(routine);
-      } else {
-        console.log(dayShort);
+
+    for (let i = 0; i < routines.length; i++) {
+      if (dayShort == routines[i].date) {
+        setRoutineToEdit(routines[i]);
+        break;
+      } else if (i === routines.length - 1) {
         setShowAddRoutineDIalog(true);
+        break;
       }
-    });
+    }
   }, [day]);
 
   async function deleteRoutine(routine: RoutineModel) {
@@ -68,19 +72,25 @@ const RoutinesPageLoggeInView = () => {
   }
 
   const routinesGrid = (
-    <Row xs={1} md={2} xl={3} className={`g-4 ${styles.routinesGrid}`}>
-      {routines.map((routine) => {
-        return (
-          <Col key={routine._id}>
-            <Routine
-              onDeleteRoutineClicked={deleteRoutine}
-              onRoutineClicked={setRoutineToEdit}
-              routine={routine}
-              className={styles.routine}
-            />
-          </Col>
-        );
-      })}
+    <Row xs={3} xl={6} className={`g-2 ${styles.routinesGrid}`}>
+      {routines
+        .sort((a, b) =>
+          parseInt(a.date.slice(8)) > parseInt(b.date.slice(8)) ? 1 : -1
+        )
+        .map((routine) => {
+          if (routine.date.slice(4, 7) == "Aug") {
+            return (
+              <Col key={routine._id}>
+                <Routine
+                  onDeleteRoutineClicked={deleteRoutine}
+                  onRoutineClicked={setRoutineToEdit}
+                  routine={routine}
+                  className={styles.routine}
+                />
+              </Col>
+            );
+          }
+        })}
     </Row>
   );
 
@@ -99,6 +109,8 @@ const RoutinesPageLoggeInView = () => {
       )}
       {!routinesLoading && !showRoutinesLoadingError && (
         <>
+          <Chart routines={routines} />
+
           {routines.length > 0 ? (
             routinesGrid
           ) : (
