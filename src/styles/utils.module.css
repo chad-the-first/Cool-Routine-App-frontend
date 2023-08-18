@@ -14,3 +14,19 @@
 .width100 {
   width: 100%;
 }
+
+.deleteButton {
+  fill: crimson;
+}
+
+.deleteButton:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.spaceBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}

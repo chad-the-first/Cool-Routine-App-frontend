@@ -1,4 +1,4 @@
-import { ProgressBar, Row } from "react-bootstrap";
+import { Col, ProgressBar } from "react-bootstrap";
 import { Routine } from "../models/routine";
 
 interface props {
@@ -29,15 +29,15 @@ const chart = ({ routines }: props) => {
   Family = Math.round(Family / routines.length);
 
   return (
-    <Row>
-      <h2>This month scores:</h2>
+    <Col xs={5}>
+      <h2 className="text-center">This month scores:</h2>
       <ProgressBar variant="success" now={Fun} />
       <ProgressBar variant="info" now={Knowledge} />
       <ProgressBar variant="warning" now={Work} />
       <ProgressBar variant="danger" now={Service} />
       <ProgressBar variant="success" now={Self_care} />
       <ProgressBar variant="info" now={Family} />
-    </Row>
+    </Col>
   );
 };
 

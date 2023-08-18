@@ -1,14 +1,17 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import { Routine } from "../models/routine";
+import { Routine, Routine as RoutineModel } from "../models/routine";
 import { useForm } from "react-hook-form";
 import { RoutineInput } from "../network/routine_api";
 import * as RoutineApi from "../network/routine_api";
 import TextInputField from "./form/TextInputField";
+import { MdDelete } from "react-icons/md";
+import styleUtils from "../styles/utils.module.css";
 
 interface props {
   routineToEdit?: Routine;
   onDismiss: () => void;
   onRoutineSaved: (routine: Routine) => void;
+  onDeleteRoutineClicked: (routine: RoutineModel) => void;
   value: string;
 }
 
@@ -17,6 +20,7 @@ const AddEditRoutineDialog = ({
   routineToEdit,
   onDismiss,
   onRoutineSaved,
+  onDeleteRoutineClicked,
 }: props) => {
   const day = value.slice(0, 10);
   const {
@@ -113,7 +117,16 @@ const AddEditRoutineDialog = ({
           />
         </Form>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className={styleUtils.spaceBetween}>
+        {routineToEdit && (
+          <MdDelete
+            size={30}
+            className={`text-muted ${styleUtils.deleteButton}`}
+            onClick={() => {
+              onDeleteRoutineClicked(routineToEdit);
+            }}
+          />
+        )}
         <Button type="submit" form="addEditRoutineForm" disabled={isSubmitting}>
           Save
         </Button>

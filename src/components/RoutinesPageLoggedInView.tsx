@@ -65,6 +65,7 @@ const RoutinesPageLoggeInView = () => {
           (existingRoutine) => existingRoutine._id !== routine._id
         )
       );
+      setRoutineToEdit(null);
     } catch (error) {
       console.log(error);
       alert(error);
@@ -96,13 +97,15 @@ const RoutinesPageLoggeInView = () => {
 
   return (
     <>
-      <Button
-        className={`mb-4 ${stylesUtils.blockCenter} ${stylesUtils.flexCenter}`}
-        onClick={() => setShowAddRoutineDIalog(true)}
-      >
-        <FaPlus />
-        Add new routine
-      </Button>
+      {routines.length === 0 && (
+        <Button
+          className={`mb-4 ${stylesUtils.blockCenter} ${stylesUtils.flexCenter}`}
+          onClick={() => setShowAddRoutineDIalog(true)}
+        >
+          <FaPlus />
+          Add new routine
+        </Button>
+      )}
       {routinesLoading && <Spinner animation="border" variant="primary" />}
       {showRoutinesLoadingError && (
         <p>Something went wrong Please refresh the page!</p>
@@ -124,6 +127,7 @@ const RoutinesPageLoggeInView = () => {
       {showAddRoutineDialog && (
         <AddRoutineDialog
           value={String(day)}
+          onDeleteRoutineClicked={deleteRoutine}
           onDismiss={() => setShowAddRoutineDIalog(false)}
           onRoutineSaved={(newRoutine) => {
             setRoutines([...routines, newRoutine]);
@@ -134,6 +138,7 @@ const RoutinesPageLoggeInView = () => {
       {routineToEdit && (
         <AddRoutineDialog
           value={String(day)}
+          onDeleteRoutineClicked={deleteRoutine}
           routineToEdit={routineToEdit}
           onDismiss={() => setRoutineToEdit(null)}
           onRoutineSaved={(updatedRoutine) => {
