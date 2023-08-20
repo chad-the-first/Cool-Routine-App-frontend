@@ -104,7 +104,7 @@ const RoutinesPageLoggeInView = () => {
           onClick={() => setShowAddRoutineDIalog(true)}
         >
           <FaPlus />
-          Add new routine
+          Rate your day
         </Button>
       )}
       {routinesLoading && <Spinner animation="border" variant="primary" />}
