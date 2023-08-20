@@ -44,12 +44,12 @@ const chart = ({ routines, date }: props) => {
     <>
       <Col xs={5}>
         <h2 className="text-center">This month scores:</h2>
-        <ProgressBar variant="warning" now={Fun} />
-        <ProgressBar variant="info" now={Knowledge} />
-        <ProgressBar variant="dark" now={Work} />
-        <ProgressBar variant="primary" now={Service} />
-        <ProgressBar variant="success" now={Self_care} />
-        <ProgressBar variant="danger" now={Family} />
+        <ProgressBar variant="warning" label="Fun" now={Fun} />
+        <ProgressBar variant="info" label="Knowledge" now={Knowledge} />
+        <ProgressBar variant="dark" label="Work" now={Work} />
+        <ProgressBar variant="primary" label="Service" now={Service} />
+        <ProgressBar variant="success" label="Self_care" now={Self_care} />
+        <ProgressBar variant="danger" label="Family" now={Family} />
       </Col>
 
       {routines && Fun < 20 && <p>*Go out and have some fun!</p>}
