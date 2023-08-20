@@ -18,6 +18,11 @@ body {
   margin: 0;
 }
 
+.progress-bar-purpleBar > child {
+  background: purple;
+  color: white;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

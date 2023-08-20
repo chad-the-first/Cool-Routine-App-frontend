@@ -30,3 +30,7 @@
   justify-content: space-between;
   gap: 4px;
 }
+
+.inputPercentage {
+  padding-top: 33px;
+}

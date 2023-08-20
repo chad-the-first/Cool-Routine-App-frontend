@@ -8,8 +8,12 @@ interface props {
 const NavBarLoggedOutView = ({ onSignUpClicked, onLoginClicked }: props) => {
   return (
     <>
-      <Button onClick={onSignUpClicked}>Sign Up</Button>
-      <Button onClick={onLoginClicked}>Log In</Button>
+      <Button className="mx-2" variant="dark" onClick={onSignUpClicked}>
+        Sign Up
+      </Button>
+      <Button variant="info" onClick={onLoginClicked}>
+        Log In
+      </Button>
     </>
   );
 };

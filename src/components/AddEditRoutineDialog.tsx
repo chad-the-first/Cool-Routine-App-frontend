@@ -22,7 +22,7 @@ const AddEditRoutineDialog = ({
   onRoutineSaved,
   onDeleteRoutineClicked,
 }: props) => {
-  const day = value.slice(0, 10);
+  const day = value.slice(0, 15);
   const {
     register,
     handleSubmit,
@@ -61,60 +61,96 @@ const AddEditRoutineDialog = ({
     <Modal show onHide={onDismiss}>
       <Modal.Header closeButton>
         <Modal.Title>
-          {routineToEdit ? "Edit summary for " + day : "Add summary for " + day}
+          {routineToEdit ? "Edit your rating " + day : "Rate your day " + day}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Form id="addEditRoutineForm" onSubmit={handleSubmit(onSubmit)}>
-          <TextInputField
-            name="fun"
-            label="Fun"
-            type="range"
-            register={register}
-            registerOptions={{ required: "Required" }}
-            error={errors.fun}
-          />
-          <TextInputField
-            name="knowledge"
-            label="Knowledge"
-            type="range"
-            register={register}
-            registerOptions={{ required: "Required" }}
-            error={errors.knowledge}
-          />
-          <TextInputField
-            name="work"
-            label="Work"
-            type="range"
-            register={register}
-            registerOptions={{ required: "Required" }}
-            error={errors.work}
-          />
-          <TextInputField
-            name="service"
-            label="Service"
-            type="range"
-            register={register}
-            registerOptions={{ required: "Required" }}
-            error={errors.service}
-          />
-          <TextInputField
-            name="self_care"
-            label="Self_care"
-            type="range"
-            register={register}
-            registerOptions={{ required: "Required" }}
-            error={errors.self_care}
-          />
-          <TextInputField
-            name="family"
-            label="Family"
-            type="range"
-            register={register}
-            registerOptions={{ required: "Required" }}
-            error={errors.family}
-          />
+          <div className="d-flex">
+            <p className={styleUtils.inputPercentage}>0</p>
+            <div className="px-2 flex-fill">
+              <TextInputField
+                name="fun"
+                label="Fun"
+                type="range"
+                register={register}
+                registerOptions={{ required: "Required" }}
+                error={errors.fun}
+              />
+            </div>
+            <p className={styleUtils.inputPercentage}>10</p>
+          </div>
+          <div className="d-flex">
+            <p className={styleUtils.inputPercentage}>0</p>
+            <div className="px-2 flex-fill">
+              <TextInputField
+                name="knowledge"
+                label="Knowledge"
+                type="range"
+                register={register}
+                registerOptions={{ required: "Required" }}
+                error={errors.knowledge}
+              />
+            </div>
+            <p className={styleUtils.inputPercentage}>10</p>
+          </div>
+          <div className="d-flex">
+            <p className={styleUtils.inputPercentage}>0</p>
+            <div className="px-2 flex-fill">
+              <TextInputField
+                name="work"
+                label="Work"
+                type="range"
+                register={register}
+                registerOptions={{ required: "Required" }}
+                error={errors.work}
+              />
+            </div>
+            <p className={styleUtils.inputPercentage}>10</p>
+          </div>
+          <div className="d-flex">
+            <p className={styleUtils.inputPercentage}>0</p>
+            <div className="px-2 flex-fill">
+              <TextInputField
+                name="service"
+                label="Service"
+                type="range"
+                register={register}
+                registerOptions={{ required: "Required" }}
+                error={errors.service}
+              />
+            </div>
+            <p className={styleUtils.inputPercentage}>10</p>
+          </div>
+          <div className="d-flex">
+            <p className={styleUtils.inputPercentage}>0</p>
+            <div className="px-2 flex-fill">
+              <TextInputField
+                name="self_care"
+                label="Self_care"
+                type="range"
+                register={register}
+                registerOptions={{ required: "Required" }}
+                error={errors.self_care}
+              />
+            </div>
+            <p className={styleUtils.inputPercentage}>10</p>
+          </div>
+          <div className="d-flex">
+            <p className={styleUtils.inputPercentage}>0</p>
+            <div className="px-2 flex-fill">
+              <TextInputField
+                name="family"
+                label="Family"
+                type="range"
+                register={register}
+                registerOptions={{ required: "Required" }}
+                error={errors.family}
+              />
+            </div>
+            <p className={styleUtils.inputPercentage}>10</p>
+          </div>
         </Form>
       </Modal.Body>
       <Modal.Footer className={styleUtils.spaceBetween}>

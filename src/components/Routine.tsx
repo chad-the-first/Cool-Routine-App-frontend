@@ -1,6 +1,5 @@
 import { ProgressBar } from "react-bootstrap";
 import { Routine as RoutineModel } from "../models/routine";
-// import { formatDate } from "../utils/formatDate";
 
 interface Props {
   routine: RoutineModel;
@@ -9,63 +8,19 @@ interface Props {
   onRoutineClicked: (routine: RoutineModel) => void;
 }
 
-const Routine = ({
-  routine,
-}: // className,
-// onDeleteRoutineClicked,
-// onRoutineClicked,
-Props) => {
-  const {
-    fun,
-    knowledge,
-    work,
-    service,
-    self_care,
-    family,
-    date,
-    // createdAt,
-    // updatedAt,
-  } = routine;
-
-  // let createdUpdatedText: string;
-  // if (updatedAt > createdAt) {
-  //   createdUpdatedText = "Updated: " + formatDate(updatedAt);
-  // } else {
-  //   createdUpdatedText = "Created: " + formatDate(createdAt);
-  // }
+const Routine = ({ routine }: Props) => {
+  const { fun, knowledge, work, service, self_care, family, date } = routine;
 
   return (
-    <>
-      {/* <Card
-        onClick={() => onRoutineClicked(routine)}
-        className={`${styles.routineCard} ${className}`}
-      >
-        <Card.Body className={styles.cardBody}>
-          <Card.Title className={stylesUtils.flexCenter}>
-            {title}
-            <MdDelete
-              className="text-muted ms-auto"
-              onClick={(e: { stopPropagation: () => void }) => {
-                onDeleteRoutineClicked(routine);
-                e.stopPropagation();
-              }}
-            />
-          </Card.Title>
-          <Card.Text className={styles.cardText}>{text}</Card.Text>
-        </Card.Body>
-        <Card.Footer className="text-muted">{createdUpdatedText}</Card.Footer>
-      </Card> */}
-
-      <div>
-        <h5 className="text-center">{date}</h5>
-        <ProgressBar variant="success" now={parseInt(fun)} />
-        <ProgressBar variant="info" now={parseInt(knowledge)} />
-        <ProgressBar variant="warning" now={parseInt(work)} />
-        <ProgressBar variant="danger" now={parseInt(service)} />
-        <ProgressBar variant="success" now={parseInt(self_care)} />
-        <ProgressBar variant="info" now={parseInt(family)} />
-      </div>
-    </>
+    <div>
+      <h5 className="text-center">{date.slice(0, 10)}</h5>
+      <ProgressBar variant="warning" now={parseInt(fun)} />
+      <ProgressBar variant="info" now={parseInt(knowledge)} />
+      <ProgressBar variant="dark" now={parseInt(work)} />
+      <ProgressBar variant="primary" now={parseInt(service)} />
+      <ProgressBar variant="success" now={parseInt(self_care)} />
+      <ProgressBar variant="danger" now={parseInt(family)} />
+    </div>
   );
 };
 

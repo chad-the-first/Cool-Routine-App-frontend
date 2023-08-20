@@ -21,7 +21,9 @@ const NavBarLoggedinView = ({ user, onLogoutSuccessful }: props) => {
   return (
     <>
       <Navbar.Text className="me-2">Signed in as: {user.username}</Navbar.Text>
-      <Button onClick={logout}>Log out</Button>
+      <Button variant="secondary" onClick={logout}>
+        Log out
+      </Button>
     </>
   );
 };

@@ -41,11 +41,9 @@ const RoutinesPageLoggeInView = () => {
     loadRoutines();
   }, []);
 
-  useEffect(() => {}, []);
-
+  const dayShort = String(day).slice(0, 15);
+  console.log(dayShort);
   useEffect(() => {
-    const dayShort = String(day).slice(0, 10);
-
     for (let i = 0; i < routines.length; i++) {
       if (dayShort == routines[i].date) {
         setRoutineToEdit(routines[i]);
@@ -79,9 +77,12 @@ const RoutinesPageLoggeInView = () => {
           parseInt(a.date.slice(8)) > parseInt(b.date.slice(8)) ? 1 : -1
         )
         .map((routine) => {
-          if (routine.date.slice(4, 7) == "Aug") {
+          if (
+            routine.date.slice(4, 7) + routine.date.slice(10) ===
+            dayShort.slice(4, 7) + dayShort.slice(10)
+          ) {
             return (
-              <Col key={routine._id}>
+              <Col className="mt-5" key={routine._id}>
                 <Routine
                   onDeleteRoutineClicked={deleteRoutine}
                   onRoutineClicked={setRoutineToEdit}
@@ -112,7 +113,7 @@ const RoutinesPageLoggeInView = () => {
       )}
       {!routinesLoading && !showRoutinesLoadingError && (
         <>
-          <Chart routines={routines} />
+          <Chart routines={routines} date={dayShort} />
 
           {routines.length > 0 ? (
             routinesGrid
@@ -122,7 +123,7 @@ const RoutinesPageLoggeInView = () => {
         </>
       )}
 
-      <Calendar onChange={setDay} value={day} />
+      <Calendar className="mt-5" onChange={setDay} value={day} />
 
       {showAddRoutineDialog && (
         <AddRoutineDialog
