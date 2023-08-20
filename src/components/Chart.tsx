@@ -52,12 +52,14 @@ const chart = ({ routines, date }: props) => {
         <ProgressBar variant="danger" now={Family} />
       </Col>
 
-      {Fun < 20 && <p>*Go out and have some fun!</p>}
-      {Knowledge < 20 && <p>*Come on, read something!</p>}
-      {Work < 20 && <p>*You need to find something to do!</p>}
-      {Service < 20 && <p>*Take more care of your soul!</p>}
-      {Self_care < 20 && <p>*why don't you buy yourself somehting nice?</p>}
-      {Family < 20 && (
+      {routines && Fun < 20 && <p>*Go out and have some fun!</p>}
+      {routines && Knowledge < 20 && <p>*Come on, read something!</p>}
+      {routines && Work < 20 && <p>*You need to find something to do!</p>}
+      {routines && Service < 20 && <p>*Take more care of your soul!</p>}
+      {routines && Self_care < 20 && (
+        <p>*why don't you buy yourself somehting nice?</p>
+      )}
+      {routines && Family < 20 && (
         <p>*You're family probably misses you, give them a call!</p>
       )}
     </>
