@@ -42,7 +42,6 @@ const RoutinesPageLoggeInView = () => {
   }, []);
 
   const dayShort = String(day).slice(0, 15);
-  console.log(dayShort);
   useEffect(() => {
     for (let i = 0; i < routines.length; i++) {
       if (dayShort == routines[i].date) {

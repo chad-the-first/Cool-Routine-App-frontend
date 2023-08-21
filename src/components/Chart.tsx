@@ -40,6 +40,14 @@ const chart = ({ routines, date }: props) => {
   Self_care = Math.round(Self_care / thisMonthRoutines.length);
   Family = Math.round(Family / thisMonthRoutines.length);
 
+  if (routines.length === 0) {
+    Fun = 0;
+    Knowledge = 0;
+    Work = 0;
+    Service = 0;
+    Self_care = 0;
+    Family = 0;
+  }
   return (
     <>
       <Col xs={5}>
