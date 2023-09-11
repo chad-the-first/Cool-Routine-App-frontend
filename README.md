@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+# Balanced Life 
+## MERN App
+![balanced life app preview](/src/assets/Blanced-Life.jpg "App preview")
+<hr>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I spread my wings to learn and build this MERN stack App I called Balanced life. I've always struggled to have a balanced life and, if you're like me, you can use this app to keep a record of how you're spending your quality time. I use this app to visiualize what aspect of life I need to focus on.
 
-Currently, two official plugins are available:
+### Technologies I practised:
+<ul>
+  <li>React + Vite</li>
+  <li>Typescript</li>
+  <li>Bootstrap</li>
+  <li>Node + Express</li>
+  <li>MongoDB + Mongoose</li>
+</ul>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Concepts I learned: 
+<ul>
+  <li>Creating and using Models</li>
+  <li>Password hashing</li>
+  <li>Form validation</li>
+  <li>User Authentication</li>
+  <li>Creating and using REST API</li>
+  <li>UseState and UseEffect</li>
+  <li>Using Cors</li>
+  <li>Deploying a Node server</li>
+</ul>
